@@ -7,4 +7,4 @@ cli: client.c
 	gcc client.c -lpthread -o $@
 
 clean:
-	rm cli srv
+	rm -rf cli srv
