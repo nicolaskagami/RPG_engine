@@ -12,7 +12,7 @@ int main(int argc, char**argv)
 
    if (argc != 2)
    {
-      printf("usage:  client <IP address>\n");
+      printf("Usage: Client <IP address>\n");
       return(1);
    }
 
