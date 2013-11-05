@@ -1,6 +1,6 @@
-GameServer: clean GameServer.o 
+GameClient: clean GameClient.o 
 	gcc -o GameClient GameClient.o -pthread
-GameServer.o:
+GameClient.o:
 	gcc -c GameClient.c 
 clean:
 	rm -rf *.o
