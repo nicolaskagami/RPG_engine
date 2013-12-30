@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include "Combat.h"
 
-Limb:Limb()
+Limb::Limb()
 {
     strength = STD_STR;
     dexterity = STD_DEX;
