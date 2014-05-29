@@ -8,6 +8,7 @@
 #define NUM_LIMBS       5 
 #define BODY_WEAPONS    4
 
+
 class Injury
 {
     public:
@@ -35,7 +36,7 @@ class Armor
     unsigned char weight;
     unsigned char quality;
     unsigned char durability; //255 = 100%
-}
+};
 
 class Limb
 {
@@ -44,7 +45,7 @@ class Limb
         unsigned char dexterity;
         unsigned char health;
         unsigned char stamina;
-        unsigned char position;
+        std::bitset<5> position;//3 bits para posição horizontal, 2 bits para posição vertical
         unsigned char area;
         Armor * armor;
         Injury * injuries;
