@@ -8,6 +8,36 @@
 #define NUM_LIMBS       5 
 #define BODY_WEAPONS    4
 
+//Positions
+//Circular!
+#define NW              0
+#define N               1
+#define NE              2
+#define E               3
+#define SE              4
+#define S               5
+#define SW              6
+#define W               7
+
+#define VERY_LOW        0
+#define LOW             1
+#define HIGH            2
+#define VERY_HIGH       3
+
+#define DIST0           0
+#define DIST1           7
+#define DIST2           14
+#define DIST3           18
+#define DIST4           20
+
+class Direction
+{
+    public:
+        static int horizontal_difference(Direction A, Direction B);
+        std::bitset<3> h_orientation;
+        std::bitset<2> v_orientation;
+        void print();
+};
 
 class Injury
 {
@@ -45,8 +75,8 @@ class Limb
         unsigned char dexterity;
         unsigned char health;
         unsigned char stamina;
-        std::bitset<5> position;//3 bits para posição horizontal, 2 bits para posição vertical
         unsigned char area;
+        Direction dir;
         Armor * armor;
         Injury * injuries;
         Limb();
