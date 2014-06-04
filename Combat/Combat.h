@@ -54,7 +54,7 @@ class Weapon
 {
     public:
         char * name;
-        unsigned char penetration_coefficient;
+        float penetration_coefficient;
         unsigned char height;
         unsigned char weight;
 };
