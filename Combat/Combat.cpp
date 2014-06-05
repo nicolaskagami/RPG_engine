@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include <iostream>
 #include <bitset>
+#include <list>
 #include "Combat.h"
 
 

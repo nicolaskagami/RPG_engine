@@ -30,6 +30,9 @@
 #define DIST3           18
 #define DIST4           20
 
+#define MAP_MAX_X       30
+#define MAP_MAX_Y       30
+
 class Direction
 {
     public:
@@ -43,7 +46,7 @@ class Injury
 {
     public:
         char * name;
-        unsigned char probability;
+        float probability;
         unsigned char HP_static_coefficient;
         unsigned char HP_dynamic_coefficient;
         unsigned char STA_static_coefficient;
@@ -73,8 +76,8 @@ class Limb
     public:
         unsigned char strength;
         unsigned char dexterity;
-        unsigned char health;
-        unsigned char stamina;
+        int health;
+        int stamina;
         unsigned char area;
         Direction dir;
         Armor * armor;
@@ -143,6 +146,18 @@ class Combatant
         TechniqueSkill * techs;
         unsigned char x;
         unsigned char y;
+};
+
+class Tile
+{
+    public:
+        int type;
+};
+
+class Map
+{
+    public:
+        Tile tiles[MAP_MAX_X][MAP_MAX_Y];        
 };
 
 #endif
