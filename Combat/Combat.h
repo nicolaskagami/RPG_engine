@@ -36,9 +36,11 @@
 class Direction
 {
     public:
-        static int horizontal_difference(Direction A, Direction B);
         std::bitset<3> h_orientation;
         std::bitset<2> v_orientation;
+        std::bitset<2> stretch;
+
+        static int horizontal_difference(Direction A, Direction B);
         void print();
 };
 
@@ -60,15 +62,17 @@ class Weapon
         float penetration_coefficient;
         unsigned char height;
         unsigned char weight;
+        Direction dir;
 };
 
 class Armor
 {
-    unsigned char penetration_threshold;
-    unsigned char momentum_absorption;
-    unsigned char weight;
-    unsigned char quality;
-    unsigned char durability; //255 = 100%
+    public:
+        unsigned char penetration_threshold;
+        unsigned char momentum_absorption;
+        float weight;
+        unsigned char quality;
+        unsigned char durability; //255 = 100%
 };
 
 class Limb
@@ -88,10 +92,10 @@ class Limb
 class AnthroBody
 {
     public:
-        unsigned char health;
-        unsigned char stamina;
-        unsigned char weight;
-        unsigned char height;
+        int health;
+        int stamina;
+        int weight;
+        float height;
         Limb limbs[NUM_LIMBS];
         Weapon weapons[2];
 
