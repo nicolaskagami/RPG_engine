@@ -86,7 +86,9 @@ class Limb
         Direction dir;
         Armor * armor;
         Injury * injuries;
+
         Limb();
+        void print();
 };
 
 class AnthroBody
@@ -97,7 +99,6 @@ class AnthroBody
         int weight;
         float height;
         Limb limbs[NUM_LIMBS];
-        Weapon weapons[2];
 
         //Limbs
         // armL;
@@ -106,6 +107,8 @@ class AnthroBody
         // legR;
         // torso;
         // head;
+        //
+        void print();
 };
 
 class Submove
@@ -150,18 +153,25 @@ class Combatant
         TechniqueSkill * techs;
         unsigned char x;
         unsigned char y;
+
+        void print();
 };
 
 class Tile
 {
     public:
         int type;
+        Combatant * occupant;
 };
 
 class Map
 {
     public:
         Tile tiles[MAP_MAX_X][MAP_MAX_Y];        
+        std::vector <Combatant> contenders;
+
+        void print_contenders();
+        void add_combatant(Combatant c);
 };
 
 #endif
