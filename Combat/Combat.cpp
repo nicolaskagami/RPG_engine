@@ -38,6 +38,7 @@ int Direction::horizontal_difference(Direction A, Direction B)
    switch(abs(A.h_orientation.to_ulong() - B.h_orientation.to_ulong()))
    {
         case 0: 
+        case 8: 
             return DIST0;
         case 1:
         case 7:
