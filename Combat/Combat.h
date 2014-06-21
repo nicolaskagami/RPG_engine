@@ -162,16 +162,23 @@ class Tile
     public:
         int type;
         Combatant * occupant;
+
+        void print_type();
+        Tile();
 };
 
 class Map
 {
     public:
-        Tile tiles[MAP_MAX_X][MAP_MAX_Y];        
+        Tile * tiles;     
+        int x;
+        int y;
         std::vector <Combatant> contenders;
 
         void print_contenders();
         void add_combatant(Combatant c);
+        void print_ascii();
+        Map(int a, int b);
 };
 
 #endif

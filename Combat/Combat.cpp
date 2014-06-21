@@ -93,9 +93,48 @@ void Map::print_contenders()
         contenders[i].print();
     }
 }
+Tile::Tile()
+{
+    type = 0;
+}
+void Tile::print_type()
+{
+    printf("%d",type);
+}
+Map::Map(int a, int b)
+{
+    tiles = NULL; 
+    if((a <= MAP_MAX_X) && (b <= MAP_MAX_Y))
+    {
+        tiles = (Tile *) malloc(a*b*sizeof(Tile));
+    }
+    if(tiles == NULL)
+    {
+        printf("Map Creation Error\n");
+        x = 0;
+        y = 0;
+    }
+    else
+    {
+        x = a;
+        y = b;
+    }
+}
 void Map::add_combatant(Combatant c)
 {
    contenders.push_back(c); 
+}
+void Map::print_ascii()
+{
+    int i,j;
+    for(i=0;i<x;i++)
+    {
+        for(j=0;j<y;j++)
+        {
+            tiles[i*y+j].print_type();
+        }
+        printf("\n");
+    }
 }
 int main()
 {
@@ -108,11 +147,12 @@ int main()
         //A.dir.print();
     }
     
-    Map hehe;
+    Map hehe(10,10);
     Combatant hihi[10];
     for(i=0;i<10;i++)
     {
         hehe.add_combatant(hihi[i]);
     }
-    hehe.print_contenders();
+    //   hehe.print_contenders();
+    hehe.print_ascii();
 }
