@@ -1,6 +1,7 @@
 //Graphics implementation
 //Author: Nicolas Silveira Kagami
 
+#include <stdio.h>
 #include "Graphics.h"
 
 #define WINDOW_HEIGHT 640
