@@ -39,15 +39,18 @@ int init()
     screen = SDL_GetWindowSurface( window );
     renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
     mainEvent = new SDL_Event();
+    image = SDL_LoadBMP ("image.bmp");
     
+    SDL_BlitSurface(image,NULL,screen,NULL);
+    SDL_UpdateWindowSurface(window);
+    SDL_Delay(2000);
     while(running && mainEvent->type != SDL_QUIT)
     {
         SDL_PollEvent(mainEvent);
         SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
     }
-    //image = SDL_LoadBMP ("")
-    //SDL_FreeSurface(image);
+    SDL_FreeSurface(image);
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     delete mainEvent;
