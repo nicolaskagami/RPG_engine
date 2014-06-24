@@ -8,6 +8,7 @@
 int main(int argc, char ** arv)
 {
     init();    
-    printf("Hi shit\n");
-
+    close();
+    Map hehe(5,5);
+    hehe.print_ascii();
 }

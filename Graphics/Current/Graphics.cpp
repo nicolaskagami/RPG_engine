@@ -1,37 +1,86 @@
 //Graphics implementation
 //Author: Nicolas Silveira Kagami
 
-#include <stdio.h>
-#include <iostream>
 #include "Graphics.h"
 
-#define WINDOW_HEIGHT 640
-#define WINDOW_WIDTH 480
-#define WINDOW_TITLE "Test"
 
-SDL_Window * window = NULL;
-SDL_Surface * screen = NULL;
-SDL_Surface * image = NULL;
-SDL_Renderer * renderer = NULL;
-SDL_Event * mainEvent = NULL;
-SDL_Texture * a = NULL;
-SDL_Texture * b = NULL;
-bool running = true;
+Tile::Tile()
+{
+    type = 0;
+}
+Tile::Tile(int kind)
+{
+    type = kind;
+}
+void Tile::print_type()
+{
+    printf("%d",type);
+}
+Map::Map(int x, int y)
+{
+    if((x<=MAP_MAX_WIDTH)&&(y<=MAP_MAX_HEIGHT))
+    {
+        tiles = new Tile[x*y];
+        height = y;
+        width = x;
+    }
+    else
+    {
+        printf("Map not created: Maximum parameters:\n Height: %d\tWidth: %d\n",
+                MAP_MAX_HEIGHT,MAP_MAX_WIDTH);
+        exit(0);
+    }
+}
+Map::~Map()
+{
+    delete tiles;
+}
+void Map::print_ascii()
+{
+    int i,j;
+    printf("Printing map(%d,%d)\n",height,width);
+    for(i=0;i<width;i++)
+    {
+        for(j=0;j<height;j++)
+            tiles[i*height+j].print_type();
+        printf("\n");
+    }
+}
 
-void logSDLError(std::ostream &os, const std::string &msg)
+Texture::Texture(std::string &file)
+{
+    filename = file;
+}
+void Window::logSDLError(std::ostream &os, const std::string &msg)
 {
         os << msg << " error: " << SDL_GetError() << std::endl;
 }
-
-SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
+int Window::read_textures_list(std::string &texture_file)
+{
+    std::string line;
+    Texture * newTexture;
+    ifstream textfile (texture_file);
+    if(textfile.is_open())
+    {
+        while(getline(textfile,line))
+        {
+            newTexture = new Texture(line);
+            textures.push_back(newTexture);
+        }
+        textfile.close();
+        return 0;
+    }
+    else
+        return -1;
+}
+SDL_Texture* Window::loadTexture(const std::string &file)
 {
     SDL_Texture *texture = NULL;
     SDL_Surface *loadedImage = SDL_LoadBMP(file.c_str());
     if (loadedImage != NULL)
     {
-        texture = SDL_CreateTextureFromSurface(ren, loadedImage);
+        texture = SDL_CreateTextureFromSurface(renderer, loadedImage);
         SDL_FreeSurface(loadedImage);
-        //Make sure converting went ok too
         if (texture == NULL)
             logSDLError(std::cout, "CreateTextureFromSurface");
     }
@@ -40,21 +89,20 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 
     return texture;
 }
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y)
+void Window::renderTexture(SDL_Texture *tex, int x, int y)
 {
     SDL_Rect dst;
     dst.x = x;
     dst.y = y;
 
     SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
-    SDL_RenderCopy(ren, tex, NULL, &dst);
+    SDL_RenderCopy(renderer, tex, NULL, &dst);
 }
-int init()
+int Window::init()
 { 
-    SDL_Surface* screen = NULL;
     if (SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
-        printf("SDL2 Error: Could not initialize\n");
+        logSDLError(std::cout,"Initialization");
         exit(0);
     }
     window = SDL_CreateWindow(
@@ -63,42 +111,48 @@ int init()
         SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH,
         WINDOW_HEIGHT,
-        SDL_WINDOW_SHOWN);
-    if( window == 0)
+        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    if( window == NULL)
     {
-        printf("SDL2 Error: Could not create window\n");
+        logSDLError(std::cout,"Creating Window");
         exit(0);
     }
+
+    running = true;
 
     screen = SDL_GetWindowSurface( window );
     renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
     mainEvent = new SDL_Event();
-    image = SDL_LoadBMP ("image.bmp");
-    
-    SDL_BlitSurface(image,NULL,screen,NULL);
-    SDL_UpdateWindowSurface(window);
-    SDL_Delay(2000);
+    num_textures=0;
+
     a = loadTexture("A.bmp",renderer);
     b = loadTexture("B.bmp",renderer);
-    int w,h;
     SDL_QueryTexture(a,NULL,NULL,&w,&h);
-    renderTexture(a,renderer,0,0);
-    renderTexture(a,renderer,w,0);
-    renderTexture(a,renderer,0,h);
-    renderTexture(a,renderer,w,h);
-    printf("W: %d, H: %d\n",w,h);
-    SDL_RenderPresent(renderer);
-    SDL_Delay(2000);
+}
+void Window::run()
+{
     while(running && mainEvent->type != SDL_QUIT)
     {
         SDL_PollEvent(mainEvent);
  //       SDL_RenderClear(renderer);
         SDL_RenderPresent(renderer);
     }
-    SDL_FreeSurface(image);
-    SDL_DestroyWindow(window);
+}
+void Window::close()
+{
+    SDL_DestroyTexture(a);
+    SDL_DestroyTexture(b);
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
     delete mainEvent;
     SDL_Quit();
-    return 0;
+}
+int Window::present_image(std::string &name)
+{
+    SDL_Surface * image = SDL_LoadBMP (name);
+    if(image)
+    {
+        SDL_BlitSurface(image,NULL,screen,NULL);
+        SDL_UpdateWindowSurface(window);
+    }
 }
