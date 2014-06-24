@@ -49,45 +49,26 @@ void Map::print_ascii()
 
 Texture::Texture(std::string &file)
 {
+    SDL_Surface *loaded_image = SDL_LoadBMP(file.c_str());
     filename = file;
-}
-void Window::logSDLError(std::ostream &os, const std::string &msg)
-{
-        os << msg << " error: " << SDL_GetError() << std::endl;
-}
-int Window::read_textures_list(std::string &texture_file)
-{
-    std::string line;
-    Texture * newTexture;
-    std::ifstream textfile (texture_file, std::ifstream::in);
-    if(textfile.is_open())
+    if(loaded_image != NULL)
     {
-        while(getline(textfile,line))
-        {
-            newTexture = new Texture(line);
-            textures.push_back(newTexture);
-        }
-        textfile.close();
-        return 0;
-    }
-    else
-        return -1;
-}
-SDL_Texture* Window::loadTexture(const std::string &file)
-{
-    SDL_Texture *texture = NULL;
-    SDL_Surface *loadedImage = SDL_LoadBMP(file.c_str());
-    if (loadedImage != NULL)
-    {
-        texture = SDL_CreateTextureFromSurface(renderer, loadedImage);
+        img = SDL_CreateTextureFromSurface(renderer, loadedImage);
         SDL_FreeSurface(loadedImage);
-        if (texture == NULL)
-            logSDLError(std::cout, "CreateTextureFromSurface");
+        if(img == NULL)
+        {
+            printf("SDL Error: Creating Texture from Surface\n");
+        }
+        else
+            textures.push_back(this);
     }
     else
-        logSDLError(std::cout, "LoadBMP");
-
-    return texture;
+        printf("SDL Error: Load Image\n");
+}
+void Texture::Load()
+{
+   Texture A("Textures/A.bmp"); 
+   Texture B("Textures/B.bmp"); 
 }
 void Window::renderTexture(SDL_Texture *tex, int x, int y)
 {
@@ -102,7 +83,7 @@ int Window::init()
 { 
     if (SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
     {
-        logSDLError(std::cout,"Initialization");
+        printf("SDL Error: Initialization\n");
         exit(0);
     }
     window = SDL_CreateWindow(
@@ -114,7 +95,7 @@ int Window::init()
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if( window == NULL)
     {
-        logSDLError(std::cout,"Creating Window");
+        printf("SDL Error: Window Creation\n");
         exit(0);
     }
 
@@ -124,10 +105,6 @@ int Window::init()
     renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
     mainEvent = new SDL_Event();
     num_textures=0;
-
-    a = loadTexture("A.bmp",renderer);
-    b = loadTexture("B.bmp",renderer);
-    SDL_QueryTexture(a,NULL,NULL,&w,&h);
 }
 void Window::run()
 {

@@ -7,8 +7,9 @@
 
 int main(int argc, char ** arv)
 {
-    Window::init();    
-    Window::close();
+    Window w;
+    w.init();    
+    w.close();
     Map hehe(5,5);
     hehe.print_ascii();
 }
