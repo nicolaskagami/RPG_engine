@@ -4,6 +4,7 @@
 #include "SDL2/SDL.h"
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 #include <string>
 #include <fstream>
 
@@ -43,8 +44,8 @@ class Texture
         SDL_Texture * img;
         std::string filename;
 
-        Texture::Texture(std::string &file);
-}
+        Texture(std::string &file);
+};
 class Window
 {
     public:
@@ -52,7 +53,7 @@ class Window
         SDL_Surface* screen;
         SDL_Renderer * renderer;
         SDL_Event * mainEvent;
-        std::vector <Texture> textures;
+        std::vector<Texture> textures;
         bool running;
 
         void logSDLError(std::ostream &os, const std::string &msg);
@@ -63,4 +64,4 @@ class Window
         int present_image(std::string &name);
         SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren);
         void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
-}
+};

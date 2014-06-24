@@ -59,7 +59,7 @@ int Window::read_textures_list(std::string &texture_file)
 {
     std::string line;
     Texture * newTexture;
-    ifstream textfile (texture_file);
+    std::ifstream textfile (texture_file, std::ifstream::in);
     if(textfile.is_open())
     {
         while(getline(textfile,line))

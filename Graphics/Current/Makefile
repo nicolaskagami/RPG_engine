@@ -1,5 +1,14 @@
+#Makefile Supports Both Windows (under mingw) and linux
 SDL_LIB = -lSDL2main -lSDL2
-LDFLAGS = -lmingw32 -mwindows -mconsole $(SDL_LIB)
+SYS := $(shell gcc -dumpmachine)
+ifneq (, $(findstring linux, $(SYS)))
+	LDFLAGS = $(SDL_LIB)
+else ifneq(, $(findstring mingw, $(SYS)))
+	LDFLAGS = -lmingw32 -mwindows -mconsole $(SDL_LIB)
+else
+	echo "Unrecognized Option"
+endif
+
 
 all: Graphics
 
