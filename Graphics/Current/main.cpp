@@ -7,9 +7,13 @@
 
 int main(int argc, char ** arv)
 {
+    if (SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
+    {
+        printf("SDL Error: Initialization\n");
+        exit(0);
+    }
     Window w;
-    w.init();    
-    w.close();
     Map hehe(5,5);
     hehe.print_ascii();
+    SDL_Quit();
 }

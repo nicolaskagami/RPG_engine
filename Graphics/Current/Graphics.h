@@ -56,9 +56,9 @@ class Window
         SDL_Event * mainEvent;
         bool running;
 
-        int init();
+        Window();
+        ~Window();
         void run();
-        void close();
         int present_image(std::string &name);
         void renderTexture(SDL_Texture *tex, int x, int y);
 };

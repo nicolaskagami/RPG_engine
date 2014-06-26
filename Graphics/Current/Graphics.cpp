@@ -79,13 +79,8 @@ void Window::renderTexture(SDL_Texture *tex, int x, int y)
     SDL_QueryTexture(tex, NULL, NULL, &dst.w, &dst.h);
     SDL_RenderCopy(renderer, tex, NULL, &dst);
 }
-int Window::init()
+Window::Window()
 { 
-    if (SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
-    {
-        printf("SDL Error: Initialization\n");
-        exit(0);
-    }
     window = SDL_CreateWindow(
         WINDOW_TITLE,
         SDL_WINDOWPOS_CENTERED,
@@ -93,7 +88,7 @@ int Window::init()
         WINDOW_WIDTH,
         WINDOW_HEIGHT,
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
-    if( window == NULL)
+    if(window == NULL)
     {
         printf("SDL Error: Window Creation\n");
         exit(0);
@@ -115,14 +110,13 @@ void Window::run()
         SDL_RenderPresent(renderer);
     }
 }
-void Window::close()
+Window::~Window()
 {
     SDL_DestroyTexture(a);
     SDL_DestroyTexture(b);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     delete mainEvent;
-    SDL_Quit();
 }
 int Window::present_image(std::string &name)
 {
