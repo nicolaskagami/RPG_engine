@@ -84,6 +84,17 @@ void Combatant::print()
 {
     body.print();
 }
+void AnthroBody::recalculate()
+{
+    int i;
+    for(i=0,health=0,stamina=0;i<NUM_LIMBS;i++)
+    {
+        health+=limbs[i].health;
+        stamina+=limbs[i].stamina;
+    }
+    health = health/NUM_LIMBS;
+    stamina = stamina/NUM_LIMBS;
+}
 void Map::print_contenders()
 {
     int i;
@@ -135,6 +146,10 @@ void Map::print_ascii()
         }
         printf("\n");
     }
+}
+void Attack::execute()
+{
+    
 }
 int main()
 {

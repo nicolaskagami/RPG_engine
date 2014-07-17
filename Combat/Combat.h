@@ -62,6 +62,7 @@ class Weapon
         float penetration_coefficient;
         unsigned char height;
         unsigned char weight;
+        unsigned char point_of_balance;
         Direction dir;
 };
 
@@ -109,6 +110,7 @@ class AnthroBody
         // head;
         //
         void print();
+        void recalculate();
 };
 
 class Submove
@@ -181,4 +183,13 @@ class Map
         Map(int a, int b);
 };
 
+class Attack
+{
+    public:
+        Combatant * attacker;
+        Combatant * defender;
+        Map * map;
+        
+        void execute();
+};
 #endif
