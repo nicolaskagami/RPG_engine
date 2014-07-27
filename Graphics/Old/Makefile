@@ -12,7 +12,7 @@ endif
 
 all: Graphics
 
-Graphics: clean main.o Graphics.o 
+Graphics: main.o Graphics.o 
 	g++ -o Graphics main.o Graphics.o $(LDFLAGS) 
 main.o:
 	g++ -c main.cpp -lSDL2
