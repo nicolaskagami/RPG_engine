@@ -14,7 +14,7 @@
 #define MAP_MAX_HEIGHT 20
 #define MAP_MAX_WIDTH 15
 
-
+/*
 class Tile
 {
     public:
@@ -61,4 +61,4 @@ class Window
         void run();
         int present_image(std::string &name);
         void renderTexture(SDL_Texture *tex, int x, int y);
-};
+};*/

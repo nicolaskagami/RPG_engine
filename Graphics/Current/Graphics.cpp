@@ -2,9 +2,9 @@
 //Author: Nicolas Silveira Kagami
 
 #include "Graphics.h"
+#include "SDL2/SDL.h"
 
-
-Tile::Tile()
+/*Tile::Tile()
 {
     type = 0;
 }
@@ -99,7 +99,7 @@ Window::Window()
     screen = SDL_GetWindowSurface( window );
     renderer = SDL_CreateRenderer(window, -1,SDL_RENDERER_ACCELERATED);
     mainEvent = new SDL_Event();
-    num_textures=0;
+    //num_textures=0;
 }
 void Window::run()
 {
@@ -112,18 +112,18 @@ void Window::run()
 }
 Window::~Window()
 {
-    SDL_DestroyTexture(a);
-    SDL_DestroyTexture(b);
+    //SDL_DestroyTexture(a);
+    //SDL_DestroyTexture(b);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     delete mainEvent;
 }
 int Window::present_image(std::string &name)
 {
-    SDL_Surface * image = SDL_LoadBMP (name);
+    SDL_Surface * image = SDL_LoadBMP (name.c_str());
     if(image)
     {
         SDL_BlitSurface(image,NULL,screen,NULL);
         SDL_UpdateWindowSurface(window);
     }
-}
+}*/

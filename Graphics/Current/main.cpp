@@ -2,18 +2,36 @@
 //Author: Nicolas Silveira Kagami
 
 #include <stdio.h>
-#include "Graphics.h"
+#include "SDL2/SDL.h"
+#include "Game.h"
+#include "TextureManager.h"
+
+#define WINDOW_HEIGHT 640
+#define WINDOW_WIDTH 480 
+#define WINDOW_TITLE "Main Window (so far...)"
 
 
-int main(int argc, char ** arv)
+int main(int argc, char* args[])
 {
-    if (SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
-    {
-        printf("SDL Error: Initialization\n");
-        exit(0);
+    
+    TheGame.init(WINDOW_TITLE,
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        WINDOW_WIDTH,
+        WINDOW_HEIGHT,
+        SDL_WINDOW_SHOWN);
+ 
+    TheTextureManger.load("./image.bmp","tst",TheGame.getRenderer());
+    
+    while(TheGame.isRunning())
+    {    
+        TheGame.render();
+        TheGame.handleEvents();
     }
-    Window w;
-    Map hehe(5,5);
-    hehe.print_ascii();
-    SDL_Quit();
+    
+    TheGame.clean();
+    
+    return 0;
+
 }
+

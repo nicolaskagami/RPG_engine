@@ -10,13 +10,16 @@ else
 endif
 
 
-all: Graphics
+all: Game
 
-Graphics: clean main.o Graphics.o 
-	g++ -o Graphics main.o Graphics.o $(LDFLAGS) 
+Game: clean main.o Game.o TextureManager.o
+	g++ -o game main.o TextureManager.o Game.o $(LDFLAGS) 
 main.o:
 	g++ -c main.cpp -lSDL2
-Graphics.o:
-	g++ -c Graphics.cpp -lSDL2
+Game.o: TextureManager.o
+	g++ -c Game.cpp -lSDL2
+TextureManager.o:
+	g++ -c TextureManager.cpp -lSDL2
+
 clean:
 	rm -rf *.o
