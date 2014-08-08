@@ -43,7 +43,6 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
     // set the game as running.   
     running = true;
     
-    printf("asddfasddf");
     return true;
 }
 
@@ -52,7 +51,9 @@ void Game::render()
     // clear to rendering color.
     SDL_RenderClear(ptRenderer);
     
-    TheTextureManger.draw("tst",100,100,100,100,ptRenderer);
+    TheTextureManger.draw("tst",0,0,0,0,32,32,ptRenderer);
+    TheTextureManger.draw("tst",0,32,0,32,32,32,ptRenderer);
+    TheTextureManger.draw("tst",32,0,32,0,32,32,ptRenderer);
     
     // draw to the screen.
     SDL_RenderPresent(ptRenderer);

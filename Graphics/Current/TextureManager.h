@@ -34,6 +34,7 @@ class TextureManger
         // Simply draw an image.
         void draw(std::string id,
             int x, int y,
+            int srcx, int srcy,
             int width, int height,
             SDL_Renderer* ptRenderer,
             SDL_RendererFlip flip = SDL_FLIP_NONE);

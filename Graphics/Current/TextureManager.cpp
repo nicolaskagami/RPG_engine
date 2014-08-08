@@ -29,14 +29,15 @@ bool TextureManger::load(std::string fileName,
 
 void TextureManger::draw(std::string id,
             int x, int y,
+            int srcx, int srcy,
             int width, int height,
             SDL_Renderer* ptRenderer,
             SDL_RendererFlip flip)
 {
     SDL_Rect srcRect;
     SDL_Rect destRect;
-    srcRect.x = 0;
-    srcRect.y = 0;
+    srcRect.x = srcx;
+    srcRect.y = srcy;
     srcRect.w = destRect.w = width;
     srcRect.h = destRect.h = height;
     destRect.x = x;

@@ -12,13 +12,13 @@ endif
 
 all: Game
 
-Game: clean main.o Game.o TextureManager.o
+Game: main.o Game.o TextureManager.o
 	g++ -o game main.o TextureManager.o Game.o $(LDFLAGS) 
-main.o:
+main.o: main.cpp
 	g++ -c main.cpp -lSDL2
-Game.o: TextureManager.o
+Game.o: Game.cpp
 	g++ -c Game.cpp -lSDL2
-TextureManager.o:
+TextureManager.o: TextureManager.cpp
 	g++ -c TextureManager.cpp -lSDL2
 
 clean:

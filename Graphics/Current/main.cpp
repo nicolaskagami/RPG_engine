@@ -6,8 +6,8 @@
 #include "Game.h"
 #include "TextureManager.h"
 
-#define WINDOW_HEIGHT 640
-#define WINDOW_WIDTH 480 
+#define WINDOW_HEIGHT 480
+#define WINDOW_WIDTH 640 
 #define WINDOW_TITLE "Main Window (so far...)"
 
 
@@ -21,7 +21,7 @@ int main(int argc, char* args[])
         WINDOW_HEIGHT,
         SDL_WINDOW_SHOWN);
  
-    TheTextureManger.load("./image.bmp","tst",TheGame.getRenderer());
+    TheTextureManger.load("./Textures/As.bmp","tst",TheGame.getRenderer());
     
     while(TheGame.isRunning())
     {    
