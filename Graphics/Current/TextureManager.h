@@ -1,4 +1,4 @@
-//TextureManger header. Handles the storing and drawing of textures.
+//TextureManager header. Handles the storing and drawing of textures.
 //Author: Vítor Fortes Rey
 
 #ifndef TEXTURE_MANAGER_H
@@ -9,16 +9,16 @@
 #include <string>
 #include <map>
 
-#define TheTextureManger TextureManger::getInstance()
+#define TheTextureManager TextureManager::getInstance()
 
 
-class TextureManger
+class TextureManager
 {
     public:
         // Keep only one reference.
-        static TextureManger& getInstance()
+        static TextureManager& getInstance()
         {
-            static TextureManger instance;
+            static TextureManager instance;
             return instance;
         }
         
@@ -41,9 +41,9 @@ class TextureManger
         
         
     private:
-        TextureManger() {}                    // Keep private.  
-        TextureManger(TextureManger const&);  // Don't Implement.
-        void operator=(TextureManger const&); // Don't implement.
+        TextureManager() {}                    // Keep private.  
+        TextureManager(TextureManager const&);  // Don't Implement.
+        void operator=(TextureManager const&); // Don't implement.
  };
 
 

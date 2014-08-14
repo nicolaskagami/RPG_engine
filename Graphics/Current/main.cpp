@@ -21,7 +21,7 @@ int main(int argc, char* args[])
         WINDOW_HEIGHT,
         SDL_WINDOW_SHOWN);
  
-    TheTextureManger.load("./Textures/As.bmp","tst",TheGame.getRenderer());
+    TheTextureManager.load("./Textures/As.bmp","tst",TheGame.getRenderer());
     
     while(TheGame.isRunning())
     {    

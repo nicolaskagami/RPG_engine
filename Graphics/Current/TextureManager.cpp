@@ -1,8 +1,8 @@
-//TextureManger implementation. Handles the storing and drawing of textures.
+//TextureManager implementation. Handles the storing and drawing of textures.
 #include "TextureManager.h"
 
 
-bool TextureManger::load(std::string fileName,
+bool TextureManager::load(std::string fileName,
         std::string id, SDL_Renderer* ptRenderer)
 {
     // load surface from file.
@@ -27,7 +27,7 @@ bool TextureManger::load(std::string fileName,
     return false;
 }
 
-void TextureManger::draw(std::string id,
+void TextureManager::draw(std::string id,
             int x, int y,
             int srcx, int srcy,
             int width, int height,
